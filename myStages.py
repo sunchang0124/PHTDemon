@@ -5,10 +5,10 @@ import json
 import myFunctions as mf
 import base64
 
-def stageOne(endpointUrl, tmpFolderLocation, Divide_set, C_seed, C_min, C_max):
-    #dataString=requests.get(endpointUrl).text
-    myData = pd.read_csv(endpointUrl)
-    myData = myData.drop('Unnamed: 0', axis=1)
+def stageOne(df_A, tmpFolderLocation, Divide_set, C_seed, C_min, C_max): # endpointUrl
+
+    # myData = pd.read_csv(endpointUrl)
+    myData = df_A # myData.drop('Unnamed: 0', axis=1)
     
     #Do the actual magic
     myResult = mf.start_at_A(myData, Divide_set, C_seed, C_min, C_max)
@@ -21,11 +21,11 @@ def stageOne(endpointUrl, tmpFolderLocation, Divide_set, C_seed, C_min, C_max):
 
     return myResult
 
-def stageTwo(endpointUrl, tmpFolderLocation, inputArgs, Divide_set, C_seed, C_min, C_max):
-    myData=pd.read_csv(endpointUrl)
-    colB = myData.columns
-    Y = myData['diag_3']
-    myData = myData[colB[0:6]].drop(['Unnamed: 0'], axis=1) # we only use first 5 columns here because the values
+def stageTwo(df_B, tmpFolderLocation, inputArgs, Divide_set, C_seed, C_min, C_max): # endpointUrl
+    # myData=pd.read_csv(endpointUrl)
+    # colB = myData.columns
+    Y = df_B.iloc[:,-1]
+    myData = df_B # myData[colB[0:6]].drop(['Unnamed: 0'], axis=1) # we only use first 5 columns here because the values
     
     myResult = mf.start_at_B(myData, C_seed, C_min, C_max, inputArgs["sumNoiseBytes"], Divide_set)
     
@@ -37,9 +37,9 @@ def stageTwo(endpointUrl, tmpFolderLocation, inputArgs, Divide_set, C_seed, C_mi
     
     return myResult
 
-def stageThree(endpointUrl, tmpFolderLocation, inputArgs, Divide_set):
-    myData=pd.read_csv(endpointUrl)
-    myData = myData.drop('Unnamed: 0', axis=1)
+def stageThree(df_A, tmpFolderLocation, inputArgs, Divide_set): # endpointUrl
+    myData = df_A # pd.read_csv(endpointUrl)
+    # myData = myData.drop('Unnamed: 0', axis=1)
     
     with open(tmpFolderLocation + '/randomBytes') as binary_file:
         A_randoms = json.loads(binary_file.read())
@@ -48,11 +48,11 @@ def stageThree(endpointUrl, tmpFolderLocation, inputArgs, Divide_set):
     
     return myResult
 
-def stageFour(endpointUrl, tmpFolderLocation, inputArgs, Divide_set):
-    myData=pd.read_csv(endpointUrl)
-    colB = myData.columns
-    Y = myData['diag_3']
-    myData = myData[colB[0:6]].drop(['Unnamed: 0'], axis=1) # we only use first 5 columns here because the values
+def stageFour(df_B, tmpFolderLocation, inputArgs, Divide_set): # endpointUrl
+    # myData=pd.read_csv(endpointUrl)
+    # colB = myData.columns
+    Y = df_B.iloc[:,-1]
+    myData = df_B # myData[colB[0:6]].drop(['Unnamed: 0'], axis=1) # we only use first 5 columns here because the values
     
     with open(tmpFolderLocation + '/randomBytes') as binary_file:
         B_randoms = json.loads(binary_file.read())

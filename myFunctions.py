@@ -195,11 +195,11 @@ def Final_at_B(df, A_randoms_Sumset, Sum_noises_B_Arand, XaTXa, B_random_set, Di
     XbTXb_exclY = XbTXb[:-1].T[:-1]
     XbTY = np.delete(XbTXb[-1], -1)
 
-    print("XaTXa: " + str(len(XaTXa)) + " - " + str(len(XaTXa[0])))
-    print("XbTXa: " + str(len(XbTXa)) + " - " + str(len(XbTXa[0])))
-    print("XaTXb: " + str(len(XaTXb)) + " - " + str(len(XaTXb[0])))
-    print("XbTXb: " + str(len(XbTXb)) + " - " + str(len(XbTXb[0])))
-    print("XbTXb_exclY: " + str(len(XbTXb_exclY)) + " - " + str(len(XbTXb_exclY[0])))
+    # print("XaTXa: " + str(len(XaTXa)) + " - " + str(len(XaTXa[0])))
+    # print("XbTXa: " + str(len(XbTXa)) + " - " + str(len(XbTXa[0])))
+    # print("XaTXb: " + str(len(XaTXb)) + " - " + str(len(XaTXb[0])))
+    # print("XbTXb: " + str(len(XbTXb)) + " - " + str(len(XbTXb[0])))
+    # print("XbTXb_exclY: " + str(len(XbTXb_exclY)) + " - " + str(len(XbTXb_exclY[0])))
     
     pp_XTX = np.concatenate((np.concatenate((XaTXa, XbTXa), axis=1), np.concatenate((XaTXb, XbTXb_exclY), axis=1)),axis=0) 
     pp_XTY = np.concatenate((XaTY, XbTY),axis=1).T

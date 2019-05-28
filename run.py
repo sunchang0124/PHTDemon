@@ -1,5 +1,6 @@
 import os
 import json
+import pandas as pd
 import myStages as ms
 
 endpointType = os.environ.get("endpointType")
@@ -26,13 +27,17 @@ C_min = 0
 C_max = 5
 
 if currentStage == 1:
-    outputJson = ms.stageOne(endpointUrl, tempFolder, Divide_set, C_seed, C_min, C_max)
+    df_A = pd.DataFrame.from_records(inputArgs["dataA"]).transpose()
+    outputJson = ms.stageOne(df_A, tempFolder, Divide_set, C_seed, C_min, C_max) # endpointUrl
 if currentStage == 2:
-    outputJson = ms.stageTwo(endpointUrl, tempFolder, inputArgs, Divide_set, C_seed, C_min, C_max)
+    df_B = pd.DataFrame.from_records(inputArgs["dataB"]).transpose()
+    outputJson = ms.stageTwo(df_B, tempFolder, inputArgs, Divide_set, C_seed, C_min, C_max) # endpointUrl
 if currentStage == 3:
-    outputJson = ms.stageThree(endpointUrl, tempFolder, inputArgs, Divide_set)
+    df_A = pd.DataFrame.from_records(inputArgs["dataA"]).transpose()
+    outputJson = ms.stageThree(df_A, tempFolder, inputArgs, Divide_set) # endpointUrl
 if currentStage == 4:
-    outputJson = ms.stageFour(endpointUrl, tempFolder, inputArgs, Divide_set)
+    df_B = pd.DataFrame.from_records(inputArgs["dataB"]).transpose()
+    outputJson = ms.stageFour(df_B, tempFolder, inputArgs, Divide_set) # endpointUrl
 
 # Write output to file
 with open(outputFileLocation, 'w') as f:
