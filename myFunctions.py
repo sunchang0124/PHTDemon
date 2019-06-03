@@ -21,7 +21,7 @@ def start_at_A(df, Divide_set, C_seed, C_min, C_max): # df: import data in DataF
     # Generate random numbers and add to data at Data Site A
     A_randoms = []
     for i in range(0, len_A):
-        # np.random.seed(1)
+        np.random.seed(C_seed)
         A_randoms.append(np.random.randint(0,5, len(X_a.iloc[:,i])))
         
     C_matrix = [] # C_noises is shared between A and B 
@@ -72,7 +72,7 @@ def start_at_B(df , C_seed, C_min, C_max, Sum_noises_A, Divide_set): # df: impor
 
     B_random_set = []
     for i in range(0, len(Sum_noises_A)):
-        # np.random.seed(3)
+        np.random.seed(C_seed)
         B_random_set.append(np.random.randint(0,5, int(len(X_b.iloc[:,0])/B_divide_set))) 
 
     Sum_noises_B = [] # which will be send to A
@@ -117,8 +117,14 @@ def communication_at_A(df, A_randoms, Sum_noises_AB, Sum_noises_B, Divide_set):
     Sum_noises_AB = np.array(Sum_noises_AB)
 
     X_a = df
+    col = X_a.columns
+    if 'b0' not in col:
+        # Add one columns with all values of 1 to dataset which uses to calculate b0
+        b0 = np.ones((1, len(X_a))).tolist()[0]
+        X_a.insert(loc=0, column='b0', value=b0)
+
     B_divide_set = Divide_set
-    len_A = len(X_a.columns)
+    len_A = len(col)
 
     ### At site A ###
     A_randoms_Sumset = []

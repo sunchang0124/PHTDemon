@@ -1,4 +1,4 @@
-# docker rmi sophia921025/fairhealth_demon_p1
+docker rmi sophia921025/ppdml_demon
 docker build --no-cache -t sophia921025/ppdml_demon ./
 
 printf "Upload to Docker Hub?\nOptions [Y/n]: "

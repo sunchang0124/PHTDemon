@@ -1,3 +1,4 @@
+docker rmi fairhealth_demon 
 docker build --no-cache -t sophia921025/fairhealth_demon ./
 
 printf "Upload to Docker Hub?\nOptions [Y/n]: "
